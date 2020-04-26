@@ -10,10 +10,11 @@ def deep_flatten(lst: List[Any]) -> List[Any]:
     [1, 2, 3, 4, 5]
     """
     flattened_list = []
+
     for elem in lst:
-        if hasattr(elem, "__iter__"):
+        try:
             flattened_list.extend(deep_flatten(elem))
-        else:
+        except TypeError:
             flattened_list.append(elem)
 
     return flattened_list

@@ -14,7 +14,7 @@ def deep_flatten(iterable: Iterable) -> Iterable:
     (1, 98)
     """
     for elem in iterable:
-        if hasattr(elem, "__iter__"):
+        try:
             yield from deep_flatten(elem)
-        else:
+        except TypeError:
             yield elem

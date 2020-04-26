@@ -9,9 +9,9 @@ def deep_flatten(iterable: Iterable) -> Iterable:
     """
     flattened_list = []
     for elem in iterable:
-        if hasattr(elem, "__iter__"):
+        try:
             flattened_list.extend(deep_flatten(elem))
-        else:
+        except TypeError:
             flattened_list.append(elem)
 
     return flattened_list

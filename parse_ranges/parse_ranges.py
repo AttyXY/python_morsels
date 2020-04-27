@@ -37,10 +37,8 @@ def parse_ranges(ranges: str) -> List[int]:
         first_num = int(r.split('-')[0])
         second_num = int(r.split('-')[1])
 
-        # inclusive range
-        iterable_range.extend([n for n in range(first_num, second_num + 1)])
-
-    return iter(iterable_range)
+    for n in range(first_num, second_num + 1):
+        yield n
 
 
 # Bonus 2

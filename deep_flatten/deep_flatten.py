@@ -1,5 +1,6 @@
 from typing import List, Any, Iterable
 
+
 def deep_flatten(lst: List[Any]) -> List[Any]:
     """Returns a flattened version of lst
 

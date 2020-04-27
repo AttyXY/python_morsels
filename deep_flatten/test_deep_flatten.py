@@ -1,7 +1,7 @@
 from collections import deque
 import unittest
 
-from bonus3 import deep_flatten
+from deep_flatten import deep_flatten
 
 
 class DeepFlattenTests(unittest.TestCase):

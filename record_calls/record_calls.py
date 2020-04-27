@@ -1,4 +1,4 @@
-from typing import List, Dict
+from typing import Any, Optional
 from functools import wraps
 from dataclasses import dataclass
 
@@ -86,14 +86,15 @@ from dataclasses import dataclass
 
 
 # Bonus 3
+NO_RETURN = object()
+
 @dataclass
 class Call:
-    args: List
-    kwargs: Dict
-    return_value: int
-    exception: Exception
+    args: list
+    kwargs: dict
+    return_value: Any = NO_RETURN
+    exception: Optional[BaseException] = None
 
-NO_RETURN = object()
 
 def record_calls(func):
     """Records the number of times func is called."""
@@ -104,7 +105,7 @@ def record_calls(func):
             return_value = func(*args, **kwargs)
             wrapper.calls.append(Call(args=args, kwargs=kwargs,
                                       return_value=return_value, exception=None))
-        except Exception as e:
+        except BaseException as e:
             wrapper.calls.append(Call(args=args, kwargs=kwargs,
                                       return_value=NO_RETURN, exception=e))
         return func(*args, **kwargs)

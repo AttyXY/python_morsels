@@ -12,14 +12,14 @@ class HTMLTag:
         closed = tag.startswith('<') and tag.endswith('>')
         has_tagname = len(tag) >= 3
         if closed and has_tagname:
-            tag = tag[1:-1]                     # strip open and closing brackets
-            self.tagname = tag.split(' ')[0].lower()    # get tagname
+            tag = tag[1:-1]     # strip open and closing brackets
+            self.tagname = tag.split(' ', 1)[0].lower()    # get tagname
         else:
             raise InvalidHTMLTagException
 
         # parse attributes
         try:
-            tag = ''.join(tag.split(' ')[1:])
+            tag = tag.split(' ', 1)[1]
             attrs = tag.split('=')
         except IndexError:
             return  # no attributes
@@ -30,10 +30,9 @@ class HTMLTag:
             val = temp[0]
             self.attrs[key.lower()] = val.lower()
             try:
-                next_key = ''.join(temp[1:])
+                key = ' '.join(temp[1:])
             except IndexError:
                 pass    # reached last key
-
 
 
     def __eq__(self, other):

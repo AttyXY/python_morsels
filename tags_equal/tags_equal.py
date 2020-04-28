@@ -4,35 +4,28 @@ class InvalidHTMLTagException(Exception):
 
 class HTMLTag:
     def __init__(self, tag):
-        self.og_tag = tag
+        self.tag = tag.lower()
         self.tagname = ""
         self.attrs = {}
 
         # valid html tag?
-        closed = tag.startswith('<') and tag.endswith('>')
-        has_tagname = len(tag) >= 3
+        closed = self.tag.startswith('<') and self.tag.endswith('>')
+        has_tagname = len(self.tag) >= 3
         if closed and has_tagname:
-            tag = tag[1:-1]     # strip open and closing brackets
-            self.tagname = tag.split(' ', 1)[0].lower()    # get tagname
+            self.tag = self.tag[1:-1]     # strip open and closing brackets
+            self.tagname = self.tag.split(' ', 1)[0]
         else:
             raise InvalidHTMLTagException
 
         # parse attributes
         try:
-            tag = tag.split(' ', 1)[1]
-            attrs = tag.split('=')
+            attrs = self.tag.split(' ')[1:]
         except IndexError:
             return  # no attributes
 
-        key = attrs[0]
-        for i in range(1, len(attrs)):
-            temp = attrs[i].split(' ')
-            val = temp[0]
-            self.attrs[key.lower()] = val.lower()
-            try:
-                key = ' '.join(temp[1:])
-            except IndexError:
-                pass    # reached last key
+        for attr in attrs:  # no spaces in attr names
+            key, val = attr.split('=')
+            self.attrs[key] = val
 
 
     def __eq__(self, other):
@@ -69,36 +62,29 @@ class InvalidHTMLTagException(Exception):
 
 class HTMLTag:
     def __init__(self, tag):
-        self.og_tag = tag
+        self.tag = tag.lower()
         self.tagname = ""
         self.attrs = {}
 
         # valid html tag?
-        closed = tag.startswith('<') and tag.endswith('>')
-        has_tagname = len(tag) >= 3
+        closed = self.tag.startswith('<') and self.tag.endswith('>')
+        has_tagname = len(self.tag) >= 3
         if closed and has_tagname:
-            tag = tag[1:-1]     # strip open and closing brackets
-            self.tagname = tag.split(' ', 1)[0].lower()    # get tagname
+            self.tag = self.tag[1:-1]     # strip open and closing brackets
+            self.tagname = self.tag.split(' ', 1)[0]
         else:
             raise InvalidHTMLTagException
 
         # parse attributes
         try:
-            tag = tag.split(' ', 1)[1]
-            attrs = tag.split('=')
+            attrs = self.tag.split(' ')[1:]
         except IndexError:
             return  # no attributes
 
-        key = attrs[0]
-        for i in range(1, len(attrs)):
-            temp = attrs[i].split(' ')
-            val = temp[0]
+        for attr in attrs:  # no spaces in attr names
+            key, val = attr.split('=')
             if key not in self.attrs:   # only record first instance
-                self.attrs[key.lower()] = val.lower()
-            try:
-                key = ' '.join(temp[1:])
-            except IndexError:
-                pass    # reached last key
+                self.attrs[key] = val
 
 
     def __eq__(self, other):

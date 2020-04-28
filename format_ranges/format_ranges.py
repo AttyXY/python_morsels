@@ -2,7 +2,7 @@ from typing import List
 
 
 def format_ranges(nums: List[int]) -> str:
-    """Returns nums with consecutive numbers grouped together.
+    """Returns string representation of ranges of consecutive numbers.
 
     base
     >>> format_ranges([1, 2, 3, 4, 5, 6, 7, 8])
@@ -14,24 +14,18 @@ def format_ranges(nums: List[int]) -> str:
     >>> format_ranges([])
     ''
     """
-    # First num
+    ranges = [[]]
     try:
-        last_num = nums[0]
-        ranges = f"{last_num}"
+        ranges[-1].append(nums[0])
     except IndexError:
-        return ""
+        return ""   # empty list
 
-    # In-between nums
-    for n in nums[1:-1]:
-        if n != last_num + 1:
-            ranges += f"-{last_num},{n}"
-        last_num = n
+    for i in range(1, len(nums)):
+        prev_num = nums[i - 1]
+        curr_num = nums[i]
+        if curr_num != prev_num + 1:
+            ranges.append([curr_num])
+        else:
+            ranges[-1].append(curr_num)
 
-    # Last num
-    n = nums[-1]
-    if n != last_num + 1:
-        ranges += f"-{last_num},{n}"
-    else:
-        ranges += f"-{n}"
-
-    return ranges
+    return ','.join([f"{consecutives[0]}-{consecutives[-1]}" for consecutives in ranges])

@@ -176,10 +176,10 @@ class HTMLTag:
         for attr in attrs:  # no spaces in attr names
             try:
                 key, val = attr.split('=')
+                val = val.replace("'", "").replace('"', '') # ignore quotes
             except ValueError:
                 key, val = attr, None   # attribute w/o value
 
-            val = val.replace("'", "").replace('"', '') # ignore quotes
             self.attrs.setdefault(key, val)     # only record first instance
 
 

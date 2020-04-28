@@ -142,10 +142,11 @@ class HTMLTag:
         for attr in attrs:  # no spaces in attr names
             try:
                 key, val = attr.split('=')
-                if key not in self.attrs:   # only record first instance
-                    self.attrs[key] = val
             except ValueError:
-                self.attrs[attr] = None     # attribute w/o value
+                key, val = attr, None   # attribute w/o value
+
+            if key not in self.attrs:   # only record first instance
+                self.attrs[key] = val
 
 
     def __eq__(self, other):
@@ -195,14 +196,16 @@ class HTMLTag:
         except IndexError:
             return  # no attributes
 
+
         for attr in attrs:  # no spaces in attr names
             try:
                 key, val = attr.split('=')
-                val = val.replace("'", "").replace('"', '') # ignore quotes
-                if key not in self.attrs:   # only record first instance
-                    self.attrs[key] = val
             except ValueError:
-                self.attrs[attr] = None     # attribute w/o value
+                key, val = attr, None   # attribute w/o value
+
+            val = val.replace("'", "").replace('"', '') # ignore quotes
+            if key not in self.attrs:   # only record first instance
+                self.attrs[key] = val
 
 
     def __eq__(self, other):

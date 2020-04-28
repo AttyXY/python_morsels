@@ -31,14 +31,7 @@ class HTMLTag:
     def __eq__(self, other):
         if self.tagname != other.tagname:
             return False
-
-        for k,v in self.attrs.items():
-            try:
-                if other.attrs[k] != v:
-                    return False    # value not the same
-            except KeyError:
-                return False    # does not contain key
-        return True
+        return self.attrs == other.attrs
 
 
 def tags_equal(tag1: str, tag2: str) -> bool:
@@ -90,14 +83,7 @@ class HTMLTag:
     def __eq__(self, other):
         if self.tagname != other.tagname:
             return False
-
-        for k,v in self.attrs.items():
-            try:
-                if other.attrs[k] != v:
-                    return False    # value not the same
-            except KeyError:
-                return False    # does not contain key
-        return True
+        return self.attrs == other.attrs
 
 
 def tags_equal(tag1: str, tag2: str) -> bool:

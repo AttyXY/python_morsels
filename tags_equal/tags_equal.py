@@ -10,12 +10,16 @@ class HTMLTag:
 
         # valid html tag?
         closed = self.tag.startswith('<') and self.tag.endswith('>')
-        has_tagname = len(self.tag) >= 3
-        if closed and has_tagname:
+        if closed:
             self.tag = self.tag[1:-1]     # strip open and closing brackets
+        else:
+            raise InvalidHTMLTagException("Unclosed tag.")
+
+        has_tagname = len(self.tag) >= 1
+        if has_tagname:
             self.tagname = self.tag.split(' ', 1)[0]
         else:
-            raise InvalidHTMLTagException
+            raise InvalidHTMLTagException("Missing tagname.")
 
         # parse attributes
         try:
@@ -29,9 +33,7 @@ class HTMLTag:
 
 
     def __eq__(self, other):
-        if self.tagname != other.tagname:
-            return False
-        return self.attrs == other.attrs
+        return (self.tagname == other.tagname and self.attrs == other.attrs)
 
 
 def tags_equal(tag1: str, tag2: str) -> bool:
@@ -45,6 +47,14 @@ def tags_equal(tag1: str, tag2: str) -> bool:
     True
     >>> tags_equal("<b>", "<p>")
     False
+    >>> tags_equal("<b>", "")
+    Traceback (most recent call last):
+    ...
+    tags_equal.InvalidHTMLTagException: Unclosed tag.
+    >>> tags_equal("<b>", "<>")
+    Traceback (most recent call last):
+    ...
+    tags_equal.InvalidHTMLTagException: Missing tagname.
     """
     return HTMLTag(tag1) == HTMLTag(tag2)
 
@@ -61,12 +71,16 @@ class HTMLTag:
 
         # valid html tag?
         closed = self.tag.startswith('<') and self.tag.endswith('>')
-        has_tagname = len(self.tag) >= 3
-        if closed and has_tagname:
+        if closed:
             self.tag = self.tag[1:-1]     # strip open and closing brackets
+        else:
+            raise InvalidHTMLTagException("Unclosed tag.")
+
+        has_tagname = len(self.tag) >= 1
+        if has_tagname:
             self.tagname = self.tag.split(' ', 1)[0]
         else:
-            raise InvalidHTMLTagException
+            raise InvalidHTMLTagException("Missing tagname.")
 
         # parse attributes
         try:
@@ -81,9 +95,7 @@ class HTMLTag:
 
 
     def __eq__(self, other):
-        if self.tagname != other.tagname:
-            return False
-        return self.attrs == other.attrs
+        return (self.tagname == other.tagname and self.attrs == other.attrs)
 
 
 def tags_equal(tag1: str, tag2: str) -> bool:
@@ -110,12 +122,16 @@ class HTMLTag:
 
         # valid html tag?
         closed = self.tag.startswith('<') and self.tag.endswith('>')
-        has_tagname = len(self.tag) >= 3
-        if closed and has_tagname:
+        if closed:
             self.tag = self.tag[1:-1]     # strip open and closing brackets
+        else:
+            raise InvalidHTMLTagException("Unclosed tag.")
+
+        has_tagname = len(self.tag) >= 1
+        if has_tagname:
             self.tagname = self.tag.split(' ', 1)[0]
         else:
-            raise InvalidHTMLTagException
+            raise InvalidHTMLTagException("Missing tagname.")
 
         # parse attributes
         try:
@@ -133,9 +149,7 @@ class HTMLTag:
 
 
     def __eq__(self, other):
-        if self.tagname != other.tagname:
-            return False
-        return self.attrs == other.attrs
+        return (self.tagname == other.tagname and self.attrs == other.attrs)
 
 
 def tags_equal(tag1: str, tag2: str) -> bool:
@@ -162,12 +176,16 @@ class HTMLTag:
 
         # valid html tag?
         closed = self.tag.startswith('<') and self.tag.endswith('>')
-        has_tagname = len(self.tag) >= 3
-        if closed and has_tagname:
+        if closed:
             self.tag = self.tag[1:-1]     # strip open and closing brackets
+        else:
+            raise InvalidHTMLTagException("Unclosed tag.")
+
+        has_tagname = len(self.tag) >= 1
+        if has_tagname:
             self.tagname = self.tag.split(' ', 1)[0]
         else:
-            raise InvalidHTMLTagException
+            raise InvalidHTMLTagException("Missing tagname.")
 
         # parse attributes
         try:
@@ -188,9 +206,7 @@ class HTMLTag:
 
 
     def __eq__(self, other):
-        if self.tagname != other.tagname:
-            return False
-        return self.attrs == other.attrs
+        return (self.tagname == other.tagname and self.attrs == other.attrs)
 
 
 def tags_equal(tag1: str, tag2: str) -> bool:

@@ -1,4 +1,3 @@
-
 class FuzzyString(str):
     """String with case-insensitive comparison operators
 
@@ -26,6 +25,16 @@ class FuzzyString(str):
     True
     >>> new_string = o_word + ' (aka hashtag)'
     >>> new_string == 'octothorpe (AKA hashtag)'
+    True
+
+    bonus 3: normalize unicode characters when checking for equality
+    >>> ss = FuzzyString('ss')
+    >>> '\u00df' == ss
+    True
+    >>> e = FuzzyString('\u00e9')
+    >>> '\u0065\u0301' == e
+    True
+    >>> '\u0301' in e
     True
 
     custom
@@ -58,26 +67,46 @@ class FuzzyString(str):
     >>> type(new_string)
     <class 'fuzzystring.FuzzyString'>
     """
+    def parse_unicode(func):
+        """Normalizes unicode arguments to func"""
+        def normalize(*args, **kwargs):
+            import unicodedata
+            # default to NFKD:
+            #   http://www.unicode.org/reports/tr15/#Normalization_Forms_Table
+            return func(*[unicodedata.normalize("NFKD", arg) for arg in args],
+                        *{k: unicodedata.normalize("NFKD", v) for k,v in kwargs})
+
+        return normalize
+
+
+    @parse_unicode
     def __eq__(self, other: str):
-        return self.lower() == other.lower()
+        return self.casefold() == other.casefold()
 
+    @parse_unicode
     def __lt__(self, other: str):
-        return self.lower() < other.lower()
+        return self.casefold() < other.casefold()
 
+    @parse_unicode
     def __gt__(self, other: str):
-        return self.lower() > other.lower()
+        return self.casefold() > other.casefold()
 
+    @parse_unicode
     def __ne__(self, other: str):
         return not self.__eq__(other)
 
+    @parse_unicode
     def __le__(self, other: str):
         return self.__eq__(other) or self.__lt__(other)
 
+    @parse_unicode
     def __ge__(self, other: str):
         return self.__eq__(other) or self.__gt__(other)
 
+    @parse_unicode
     def __contains__(self, other: str):
-        return other.lower() in self.lower()
+        return other.casefold() in self.casefold()
 
+    @parse_unicode
     def __add__(self, other: str):
         return FuzzyString(super().__add__(other))

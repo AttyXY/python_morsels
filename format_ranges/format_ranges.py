@@ -14,9 +14,9 @@ def format_ranges(nums: List[int]) -> str:
     >>> format_ranges([])
     ''
     """
-    ranges = [[]]
+    ranges = []
     try:
-        ranges[-1].append(nums[0])
+        ranges.append(str(nums[0]))
     except IndexError:
         return ""   # empty list
 
@@ -24,8 +24,10 @@ def format_ranges(nums: List[int]) -> str:
         prev_num = nums[i - 1]
         curr_num = nums[i]
         if curr_num != prev_num + 1:
-            ranges.append([curr_num])
-        else:
-            ranges[-1].append(curr_num)
+            ranges[-1] = f"{ranges[-1]}-{prev_num}"
+            ranges.append(str(curr_num))
+        elif i == len(nums) - 1:
+            ranges[-1] = f"{ranges[-1]}-{curr_num}"
 
-    return ','.join([f"{consecutives[0]}-{consecutives[-1]}" for consecutives in ranges])
+
+    return ','.join(ranges)

@@ -2,8 +2,15 @@ from typing import List
 
 
 def format_ranges(nums: List[int]) -> str:
-    """Returns string representation of ranges of consecutive numbers.
+    """Returns string representation of ranges of consecutive numbers in nums.
 
+    analysis
+    --------
+    time: O(n)
+    space: O(n)?
+
+    tests
+    -----
     base
     >>> format_ranges([1, 2, 3, 4, 5, 6, 7, 8])
     '1-8'
@@ -38,8 +45,14 @@ def format_ranges(nums: List[int]) -> str:
 
     def get_ranges(nums: List[int]) -> List[List[int]]:
         """Returns nums with consecutive numbers grouped together.
-        Assumes: nums is sorted from least to greatest.
 
+        assumptions
+        -----------
+        - nums is non-empty
+        - nums is sorted from least to greatest
+
+        tests
+        -----
         >>> get_ranges([1, 2, 3, 4, 5, 6, 7, 8])
         [[1, 2, 3, 4, 5, 6, 7, 8]]
         >>> get_ranges([1, 2, 3, 5, 6, 7, 8, 10, 11])
@@ -54,11 +67,8 @@ def format_ranges(nums: List[int]) -> str:
         [[1, 2], [1, 2, 3, 4], [1, 2, 3, 4]]
         """
         ranges = [[]]
-        try:
-            ranges[-1].append(nums[0])
-        except IndexError:
-            return ranges
 
+        ranges[-1].append(nums[0])
         for i in range(1, len(nums)):
             prev_num = nums[i - 1]
             curr_num = nums[i]

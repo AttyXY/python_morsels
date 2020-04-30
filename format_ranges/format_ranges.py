@@ -16,10 +16,16 @@ def format_ranges(nums: List[int]) -> str:
     >>> format_ranges([1, 3, 5, 6, 8])
     '1,3,5-6,8'
 
+    bonus 2: handle unordered numbers
+    >>> format_ranges([9, 1, 7, 3, 2, 6, 8])
+    '1-3,6-9'
+
     custom
     >>> format_ranges([])
     ''
     """
+    nums = sorted(nums)
+
     ranges = [[]]
     try:
         ranges[-1].append(nums[0])

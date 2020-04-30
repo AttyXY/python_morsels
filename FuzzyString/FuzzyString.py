@@ -1,4 +1,22 @@
-class FuzzyString(str):
+from abc import ABC, abstractmethod
+from functools import total_ordering
+
+@total_ordering
+class OrderedMixin(ABC):
+    """Defines !=, >, >=, <=, based on implementations of ==, <"""
+    @abstractmethod
+    def __eq__(self, other: str):
+        """Must be implemented by child class."""
+
+    @abstractmethod
+    def __lt__(self, other: str):
+        """Must be implemented by child class."""
+
+    def __ne__(self, other: str):
+        return not self == other
+
+
+class FuzzyString(OrderedMixin, str):
     """String with case-insensitive comparison operators
 
     tests
@@ -86,22 +104,6 @@ class FuzzyString(str):
     @parse_unicode
     def __lt__(self, other: str):
         return self.casefold() < other.casefold()
-
-    @parse_unicode
-    def __gt__(self, other: str):
-        return self.casefold() > other.casefold()
-
-    @parse_unicode
-    def __ne__(self, other: str):
-        return not self.__eq__(other)
-
-    @parse_unicode
-    def __le__(self, other: str):
-        return self.__eq__(other) or self.__lt__(other)
-
-    @parse_unicode
-    def __ge__(self, other: str):
-        return self.__eq__(other) or self.__gt__(other)
 
     @parse_unicode
     def __contains__(self, other: str):

@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 from functools import total_ordering
 
+
 @total_ordering
 class OrderedMixin(ABC):
     """Defines !=, >, >=, <=, based on implementations of ==, <"""
@@ -64,7 +65,7 @@ class FuzzyString(OrderedMixin, str):
 
     >>> test < 'b'
     False
-    >>> test < 'b'
+    >>> test > 'b'
     False
     >>> test < 'a'
     False
@@ -83,7 +84,7 @@ class FuzzyString(OrderedMixin, str):
     >>> 'a' in test
     False
     >>> type(new_string)
-    <class 'fuzzystring.FuzzyString'>
+    <class 'FuzzyString.FuzzyString'>
     """
     def parse_unicode(func):
         """Normalizes unicode arguments to func"""

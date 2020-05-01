@@ -1,7 +1,7 @@
 import unittest
 
 
-from fuzzystring import FuzzyString
+from FuzzyString import FuzzyString
 
 
 class FuzzyStringTests(unittest.TestCase):

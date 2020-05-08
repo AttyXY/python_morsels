@@ -1,7 +1,9 @@
 from __future__ import annotations
 from numbers import Number
+from dataclasses import dataclass
 
 
+@dataclass
 class Vector:
     """3D implementation of vector using __slots__.
 
@@ -29,11 +31,11 @@ class Vector:
     >>> Vector(1, 2, 3) / 2 == Vector(0.5, 1, 1.5)
     True
     """
+    x: Number
+    y: Number
+    z: Number
+
     __slots__ = ('x', 'y', 'z')
-
-    def __init__(self, x: float, y: float, z: float):
-        self.x, self.y, self.z = x, y, z
-
     def __iter__(self):
         # required to work w/ multiple assignment
         yield self.x

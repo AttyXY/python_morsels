@@ -79,7 +79,7 @@ class VectorTests(unittest.TestCase):
         self.assertEqual((v5.x, v5.y, v5.z), (2, 4, 6))
 
     # To test the Bonus part of this exercise, comment out the following line
-    @unittest.expectedFailure
+    # @unittest.expectedFailure
     def test_immutable(self):
         v1 = Vector(1, 2, 3)
         with self.assertRaises(Exception):

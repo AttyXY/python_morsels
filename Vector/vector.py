@@ -3,9 +3,9 @@ from numbers import Number
 from dataclasses import dataclass
 
 
-@dataclass
+@dataclass(frozen=True)
 class Vector:
-    """3D implementation of vector using __slots__.
+    """3D immutable implementation of Vector.
 
     base
     >>> v = Vector(1, 2, 3)
@@ -17,19 +17,26 @@ class Vector:
     >>> v == Vector(1, 2, 3)
     True
 
-    bonus 1
+    bonus 1: support addition + subtraction
     >>> Vector(1, 2, 3) + Vector(4, 5, 6) == Vector(5, 7, 9)
     True
     >>> Vector(5, 7, 9) - Vector(3, 1, 2) == Vector(2, 6, 7)
     True
 
-    bonus 2
+    bonus 2: support multiplication + division
     >>> 3 * Vector(1, 2, 3) == Vector(3, 6, 9)
     True
     >>> Vector(1, 2, 3) * 2 == Vector(2, 4, 6)
     True
     >>> Vector(1, 2, 3) / 2 == Vector(0.5, 1, 1.5)
     True
+
+    bonus 3: make immutable
+    >>> v = Vector(1, 2, 3)
+    >>> v.x = 4     # #doctest: +ELLIPSIS
+    Traceback (most recent call last):
+    ...
+    dataclasses.FrozenInstanceError: ...
     """
     x: Number
     y: Number
@@ -63,8 +70,7 @@ class Vector:
             raise TypeError("Vector can only be multiplied by a scalar.")
         return Vector(self.x * scalar, self.y * scalar, self.z * scalar)
 
-    def __rmul__(self, scalar: Number) -> Vector:
-        return self *scalar
+    __rmul__ = __mul__
 
     def __truediv__(self, scalar: Number) -> Vector:
         if not isinstance(scalar, Number):

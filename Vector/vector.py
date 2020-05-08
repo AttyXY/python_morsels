@@ -19,7 +19,7 @@ class Vector:
     """
     __slots__ = ('x', 'y', 'z')
 
-    def __init__(self, x, y, z):
+    def __init__(self, x: float, y: float, z: float):
         self.x, self.y, self.z = x, y, z
 
     def __iter__(self):
@@ -29,7 +29,7 @@ class Vector:
         yield self.z
 
     def __eq__(self, other):
-        return (self.x == other.x and self.y == other.y and self.z == other.z)
+        return (self.x, self.y, self.z) == (other.x, other.y, other.z)
 
     def __ne__(self, other):
         return not (self == other)

@@ -67,7 +67,7 @@ class VectorTests(unittest.TestCase):
         self.assertEqual((v4.x, v4.y, v4.z), (v2.x, v2.y, v2.z))
 
     # To test the Bonus part of this exercise, comment out the following line
-    @unittest.expectedFailure
+    # @unittest.expectedFailure
     def test_scaling(self):
         v1 = Vector(1, 2, 3)
         v2 = Vector(4, 5, 6)

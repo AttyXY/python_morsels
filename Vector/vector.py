@@ -10,6 +10,12 @@ class Vector:
     False
     >>> v == Vector(1, 2, 3)
     True
+
+    bonus 1
+    >>> Vector(1, 2, 3) + Vector(4, 5, 6) == Vector(5, 7, 9)
+    True
+    >>> Vector(5, 7, 9) - Vector(3, 1, 2) == Vector(2, 6, 7)
+    True
     """
     __slots__ = ('x', 'y', 'z')
 
@@ -27,3 +33,9 @@ class Vector:
 
     def __ne__(self, other):
         return not (self == other)
+
+    def __add__(self, other):
+        return Vector(self.x + other.x, self.y + other.y, self.z + other.z)
+
+    def __sub__(self, other):
+        return Vector(self.x - other.x, self.y - other.y, self.z - other.z)

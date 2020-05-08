@@ -57,7 +57,7 @@ class VectorTests(unittest.TestCase):
             v.__dict__
 
     # To test the Bonus part of this exercise, comment out the following line
-    @unittest.expectedFailure
+    # @unittest.expectedFailure
     def test_shifting(self):
         v1 = Vector(1, 2, 3)
         v2 = Vector(4, 5, 6)
